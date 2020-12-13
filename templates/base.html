@@ -5,6 +5,15 @@
         {% endblock %}
     </head>
     <body>
+        {% if request.user.is_authenticated %}
+            <a class="p-2 text-dark" href="{% url 'core:index' %}">Home</a>
+            <a class="p-2 text-dark" href="{% url 'accounts:account' %}">Account</a>
+            <a class="p-2 text-dark" href="{% url 'accounts:logout' %}">Logout</a>
+	    {% else %}
+            <a class="p-2 text-dark" href="{% url 'core:index' %}">Home</a>
+            <a class="p-2 text-dark" href="{% url 'accounts:login' %}">Login</a>
+            <a class="btn btn-outline-primary" href="{% url 'accounts:register' %}">Register</a>
+	    {% endif %}	
         <h1>Header comes here</h1>
         {% block body %}
         {% endblock %}

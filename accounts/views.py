@@ -1,5 +1,7 @@
-from django.shortcuts import render
-from accounts.forms import RegistrationForm, AccountAuthenticationForm
+from django.shortcuts import render, redirect
+from django.contrib.auth import login, authenticate, logout
+
+from accounts.forms import RegistrationForm, AccountAuthenticationForm, AccountUpdateForm
 
 # Create your views here.
 def registration_view(request):
@@ -12,7 +14,7 @@ def registration_view(request):
 			raw_password = form.cleaned_data.get('password1')
 			account = authenticate(email=email, password=raw_password)
 			login(request, account)
-			return redirect('home')
+			return redirect('core:index')
 		else:
 			context['registration_form'] = form
 
@@ -33,7 +35,7 @@ def login_view(request):
 
 	user = request.user
 	if user.is_authenticated: 
-		return redirect("home")
+		return redirect("core:index")
 
 	if request.POST:
 		form = AccountAuthenticationForm(request.POST)
@@ -44,7 +46,7 @@ def login_view(request):
 
 			if user:
 				login(request, user)
-				return redirect("home")
+				return redirect("core:index")
 
 	else:
 		form = AccountAuthenticationForm()
@@ -61,7 +63,7 @@ def must_authenticate_view(request):
 def account_view(request):
 
 	if not request.user.is_authenticated:
-			return redirect("login")
+			return redirect("accounts:login")
 
 	context = {}
 	if request.POST:
