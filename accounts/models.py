@@ -42,6 +42,7 @@ class Account(AbstractBaseUser):
 	is_staff				= models.BooleanField(default=False)
 	is_active				= models.BooleanField(default=True)
 	is_superuser			= models.BooleanField(default=False)
+	admin_gate_number 		= models.IntegerField()
 
 	USERNAME_FIELD = 'email'
 	REQUIRED_FIELDS = ['username']

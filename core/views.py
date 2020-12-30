@@ -25,12 +25,16 @@ def webcam_index(request):
 
 @csrf_exempt
 def save_image(request):
+	# now = dt.dt.now
+	# if request.user.is_authenticated and request.user.is_admin:
 	if request.method == 'POST':
 		# save it somewhere
-		f = open(settings.MEDIA_ROOT + '/vehicle_image/someimage.jpg', 'wb')
+		f = open(settings.MEDIA_ROOT + '/vehicle_image/now_request.user.admin_gate_id.jpg', 'wb')
 		f.write(request.body)
 		f.close()
+		# vehicle_number = modal.predict(string)
+
 		# return the URL
-		# return HttpResponse('')
+		return HttpResponse('')
 	else:
 		return HttpResponse('no data')
